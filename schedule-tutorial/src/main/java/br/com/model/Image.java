@@ -1,6 +1,23 @@
 package br.com.model;
 
-public class Image {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Image implements Serializable{
+
+	private static final long serialVersionUID = -5626883728558018211L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+	
 	private String title;
 
 	private String height;
@@ -12,6 +29,14 @@ public class Image {
 	private String width;
 
 	private String url;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;

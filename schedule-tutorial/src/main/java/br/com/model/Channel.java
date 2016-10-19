@@ -1,14 +1,46 @@
 package br.com.model;
 
-public class Channel {
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@Entity
+public class Channel implements Serializable{
+
+	private static final long serialVersionUID = -470973933282521300L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+
+	@JsonProperty(value = "titulo")
 	private String title;
 
+	@JsonProperty(value = "descricao")
 	private String description;
 
 	private String link;
 
-	private Item[] item;
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, orphanRemoval = true)
+	@JoinColumn(name = "lead_id")
+	@JsonProperty("brindes")
+	private List<Item> item;
 
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "imagem_id")
+	@JsonProperty("canal")
 	private Image image;
 
 	private String language;
@@ -16,6 +48,15 @@ public class Channel {
 	private String copyright;
 
 	private String webMaster;
+
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
@@ -41,11 +82,11 @@ public class Channel {
 		this.link = link;
 	}
 
-	public Item[] getItem() {
+	public List<Item> getItem() {
 		return item;
 	}
 
-	public void setItem(Item[] item) {
+	public void setItem(List<Item> item) {
 		this.item = item;
 	}
 

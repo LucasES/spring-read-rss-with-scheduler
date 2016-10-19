@@ -1,15 +1,53 @@
 package br.com.model;
 
-public class Item {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@Entity
+public class Item implements Serializable{
+	
+	private static final long serialVersionUID = -8089067957582954881L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+	
 	private String pubDate;
 
+	@Lob 
+	@Column(name="titulo", length=2048)
+	@JsonProperty(value = "titulo")
 	private String title;
 
+	@Lob 
+	@Column(name="urlImagem", length=2048)
 	private String urlImage;
 
+	@Lob 
+	@Column(name="descricao", length=2048)
+	@JsonProperty(value = "descricao")
 	private String description;
 
+	@Lob 
+	@Column(name="link", length=2048)
 	private String link;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getPubDate() {
 		return pubDate;
