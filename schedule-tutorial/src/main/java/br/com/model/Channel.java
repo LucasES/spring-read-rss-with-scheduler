@@ -34,8 +34,8 @@ public class Channel implements Serializable{
 	private String link;
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, orphanRemoval = true)
-	@JoinColumn(name = "lead_id")
-	@JsonProperty("brindes")
+	@JoinColumn(name = "canal_id")
+	@JsonProperty("itens")
 	private List<Item> item;
 
 	@OneToOne(cascade = {CascadeType.ALL})
